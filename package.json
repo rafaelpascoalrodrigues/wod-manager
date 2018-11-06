@@ -1,0 +1,31 @@
+{
+  "name": "wod-manager",
+  "version": "0.1.0",
+  "description": "World of Darkness Chronicle Manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelpascoalrodrigues/wod-manager.git"
+  },
+  "author": "Rafael Rodrigues",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rafaelpascoalrodrigues/wod-manager/issues"
+  },
+  "homepage": "https://github.com/rafaelpascoalrodrigues/wod-manager#readme",
+  "devDependencies": {
+    "electron": "^3.0.6"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "less": "^3.8.1",
+    "typeface-roboto": "0.0.54",
+    "typeface-roboto-condensed": "0.0.54",
+    "typeface-roboto-mono": "0.0.54",
+    "typeface-roboto-slab": "0.0.54"
+  }
+}
