@@ -12,8 +12,21 @@ app.on('ready', function() {
     
     mainWindow = new BrowserWindow({frame: false, minHeight: 500, minWidth: 350});
     mainWindow.webContents.openDevTools();
-    
-    mainWindow.Styl
+
+    mainWindow.on('maximize', function () {
+        mainWindow.webContents.send('browserwindow-maximized');
+    });
+
+    mainWindow.on('unmaximize', function () {
+            mainWindow.webContents.send('browserwindow-unmaximized');
+    });
+
+    mainWindow.webContents.once('did-finish-load', function() {
+        if (mainWindow.isMaximized()) {
+            mainWindow.webContents.send('browserwindow-maximized');
+        }
+    });
+
 
     mainWindow.on('closed', function() {
         app.quit()

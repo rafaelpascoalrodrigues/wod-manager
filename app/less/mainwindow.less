@@ -77,6 +77,28 @@ body {
         white-space: nowrap;
     }
 
+    & {
+
+        button.maximize-button {
+            display: unset;
+        }
+        
+        button.restore-button {
+            display: none;
+        }
+    }
+
+    &.maximized {
+
+        button.maximize-button {
+            display: none;
+        }
+        
+        button.restore-button {
+            display: unset;
+        }
+    }
+
     .controls {
 
         button {

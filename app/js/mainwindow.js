@@ -1,5 +1,16 @@
 const $ = require('jquery')
 const remote = require('electron').remote;
+const ipcRenderer = require('electron').ipcRenderer;
+
+
+function browserwindowMaximized() {
+    $('.titlebar').addClass('maximized');
+}
+
+function browserwindowUnmaximized() {
+    $('.titlebar').removeClass('maximized');
+}
+
 
 function adjustLastList() {
     var lastList = $('.list:last-child','.sidemenu');
@@ -14,11 +25,23 @@ window.onresize = adjustLastList;
 window.onload = function() {
     adjustLastList();
 
-    document.getElementById('window-close-button').addEventListener('click', function (e) {
-        console.log('close');
-        var thisWindow = remote.getCurrentWindow();
-        thisWindow.close();
-        thisWindow = null;
+    ipcRenderer.on('browserwindow-maximized', browserwindowMaximized);
+    ipcRenderer.on('browserwindow-unmaximized', browserwindowUnmaximized);
+
+    $('#window-minimize-button').click(function (e) {
+        remote.getCurrentWindow().minimize();
+    });
+
+    $('#window-maximize-button').click(function (e) {
+        remote.getCurrentWindow().maximize();
+    });
+
+    $('#window-restore-button').click(function (e) {
+        remote.getCurrentWindow().restore();
+    });
+
+    $('#window-close-button').click(function (e) {
+        remote.getCurrentWindow().close();
     });
 
 
