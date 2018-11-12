@@ -2,6 +2,8 @@ const $ = require('jquery')
 const remote = require('electron').remote;
 const ipcRenderer = require('electron').ipcRenderer;
 
+var openingContent = false;
+
 
 function browserwindowMaximized() {
     $('.titlebar').addClass('maximized');
@@ -58,5 +60,33 @@ window.onload = function() {
     $(document).mouseup(function (e) {
         $(document).unbind('mousemove');
         $('body', document).removeClass('splitbar-dragging');
+    });
+
+
+    $('.action-open-content').click(function (e) {
+        var content = $(e.currentTarget).data('content');
+        
+        if (typeof content == 'undefined') {
+            console.error("open content " + content + ": 400");
+            return 400;
+        }
+
+        openingContent = true;
+
+        $.ajax({
+            type: "GET",
+            url: content + '.html',
+            cache: false,
+            async: true,
+            error: function(e) {
+                console.error("open content '" + content + "': 404");
+            },
+            success: function() {
+                $('.content').load(content + '.html');
+            },
+            complete: function() {
+                openingContent = false;
+            }
+        });
     });
 }

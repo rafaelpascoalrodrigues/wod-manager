@@ -190,12 +190,25 @@ body {
             }
 
             .controls {
-                color: @textcolor-l1;
                 float: right;
                 margin-top: -0.2em;
 
-                &:hover {
-                    color: @textcolor-highligth-l1;
+                button {
+                    background: none;
+                    border: none;
+                    outline: none;
+
+                    & {
+                        color: @textcolor-l1;
+                    }
+
+                    &:hover {
+                        color: @textcolor-highligth-l1;
+                    }
+
+                    &:active {
+                        color: @textcolor-highligth-l1;
+                    }
                 }
             }
         }
