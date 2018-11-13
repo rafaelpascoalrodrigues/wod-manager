@@ -306,3 +306,102 @@ body {
         }
     }
 }
+
+
+input {
+    border: none;
+    
+    &:required {
+        &:focus + label,
+        &:not(:focus):valid + label {
+            font-size: 0.7em;
+            top: -3.3em;
+        }
+    }
+}
+
+textarea {
+    border: 1px solid @gray-n0;
+    min-height: 3em;
+    resize: none;
+    
+    &:required {
+        &:focus + label,
+        &:not(:focus):valid + label {
+            font-size: 0.7em;
+            top: -5.7em;
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: @black-n2;
+        border-left: 1px solid @black-n4    
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: @black-n3;
+        border-left: 1px solid @black-n4;
+     
+        &:hover {
+            background: @gray-n0;
+        }
+        
+        &:active {
+            background: @black-n4;
+        }
+    }
+}
+
+input,
+textarea {
+    background: none;
+    border-bottom: 2px solid @gray-n0;
+    color: @white-n1;
+    font: bold 0.9em Roboto Mono;
+    height: 1.2em;
+    outline: none;
+    padding: 0em 0.3em;
+    transition: border 250ms ease;
+
+    &:focus {
+        border-color: @green-n2;
+    }
+
+    &:not(:focus):valid {
+        border-color: @white-n1;
+    }
+
+    &.validation-error:not(:focus):valid {
+        border-color: @red-n1;
+        color: @red-n2;
+    }
+
+    &:required {
+        display: block;
+        margin-top: 1.3em;
+
+        & + label {
+            color: @gray-n0;
+            display: block;
+            font: bold 0.9em Roboto Mono;
+            height: 0em;
+            margin-left: 0.3em;
+            pointer-events: none;
+            position: relative;
+            top: -1.4em;
+            transition: all 250ms ease;
+        }
+    
+        &:focus + label {
+            color: @green-n2;
+        }
+
+        &.validation-error:not(:focus):valid + label {
+            color: @red-n1;
+        }
+    }
+}
