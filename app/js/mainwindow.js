@@ -82,7 +82,34 @@ window.onload = function() {
                 console.error("open content '" + content + "': 404");
             },
             success: function() {
+                /* Get current stylesheets to future remotion */
+                var oldLink = $('link.dynamic-stylesheet');
+
+                /* Create html link element to anchor new less stylesheet */
+                var link = document.createElement('link');
+                link.rel = "stylesheet/less";
+                link.type = 'text/css';
+                link.href = './less/' + content + '.less';
+                link.className = 'dynamic-stylesheet';
+
+                /* Remove path to old stylesheets */
+                for (var i = (less.sheets.length - 1); i >= 0; i--) {
+                    if ($(less.sheets[i]).hasClass('dynamic-stylesheet')) {
+                        less.sheets.splice(i);
+                    }
+                }
+
+                /* Add and apply new stylesheet */
+                $('head').append(link);
+                less.sheets.push(link);
+                less.refresh(true);
+
+                /* Load new content */
                 $('.content').load(content + '.html');
+
+                /* Remove old stylesheets */
+                oldLink.next('style').remove();
+                oldLink.remove();
             },
             complete: function() {
                 openingContent = false;
