@@ -81,7 +81,7 @@ window.onload = function() {
             error: function(e) {
                 console.error("open content '" + content + "': 404");
             },
-            success: function() {
+            success: function(data) {
                 /* Get current stylesheets to future remotion */
                 var oldLink = $('link.dynamic-stylesheet');
 
@@ -105,7 +105,7 @@ window.onload = function() {
                 less.refresh(false);
 
                 /* Load new content */
-                $('.content').load(content + '.html');
+                $('.content').html(data);
 
                 /* Remove old stylesheets */
                 oldLink.next('style').remove();
