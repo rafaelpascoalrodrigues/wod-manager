@@ -102,7 +102,7 @@ window.onload = function() {
                 /* Add and apply new stylesheet */
                 $('head').append(link);
                 less.sheets.push(link);
-                less.refresh(true);
+                less.refresh(false);
 
                 /* Load new content */
                 $('.content').load(content + '.html');
