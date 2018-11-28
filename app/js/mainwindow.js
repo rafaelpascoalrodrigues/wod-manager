@@ -105,7 +105,9 @@ window.onload = function() {
                 less.refresh(false);
 
                 /* Load new content */
-                $('.content').html(data);
+                $('.content').fadeOut(100, function() {
+                    $(this).html(data).fadeIn(150);
+                });
 
                 /* Remove old stylesheets */
                 oldLink.next('style').remove();
