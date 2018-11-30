@@ -1,8 +1,30 @@
-const $ = require('jquery')
+const $ = require('jquery');
+const select2 = require('select2');
 const remote = require('electron').remote;
 const ipcRenderer = require('electron').ipcRenderer;
 
 var openingContent = false;
+
+/* Implements open on focus on select2 components */
+select2.applyOpenOnFocus = function(selector) {
+    $(selector).next('.select2').find('.select2-selection')
+        .one('focus', function() {
+            var e = $(this);
+
+            setTimeout(function() {
+                e.closest('.select2').prev('select').select2('open');
+            }, 0);
+        })
+        .on('blur', function() {
+            var e = $(this);
+
+            setTimeout(function() {
+                e.one('focus', function() {
+                    $(this).closest('.select2').prev('select').select2('open');
+                });
+            }, 0);
+        });
+}
 
 
 function browserwindowMaximized() {
@@ -25,6 +47,8 @@ function adjustLastList() {
 window.onresize = adjustLastList;
 
 window.onload = function() {
+    select2();
+
     adjustLastList();
 
     ipcRenderer.on('browserwindow-maximized', browserwindowMaximized);
@@ -107,6 +131,19 @@ window.onload = function() {
                 /* Load new content */
                 $('.content').fadeOut(100, function() {
                     $(this).html(data).fadeIn(150);
+
+                    /* Apply user interface plugin: select2  */
+                    var select2DropdownPlacement = $('.select2.select2-dropdown-parent','body');
+                    if (select2DropdownPlacement.length < 1) {
+                        $('body').append('<div class="select2 select2-dropdown-parent"></div>');
+                    }
+
+                    $('select').select2({
+                        tags : true,
+                        selectOnClose : true,
+                        dropdownParent: $('.select2-dropdown-parent')
+                    });
+                    select2.applyOpenOnFocus('select');
                 });
 
                 /* Remove old stylesheets */
